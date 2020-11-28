@@ -3,6 +3,7 @@ from airflow import DAG
 from airflow.operators.postgres_operator import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
+from airflow.contrib.sensors.file_sensor import FileSensor
 from datetime import datetime
 import psycopg2
 
@@ -22,7 +23,7 @@ with dag:
 
     # TASK 1 -> Create table in postgres. (//TODO: CHECK IF THE TABLE ALREADY EXISTS)
     create_table = PostgresOperator(
-        task_id="Create_table_in_postgres",
+        task_id="Create_Table_in_Postgres",
         sql="""CREATE TABLE sampletable(
             Date text,
             Open text,
@@ -34,28 +35,15 @@ with dag:
     )
 
     # TASK 2 -> Wait for the file using the FileSensor
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
+    file_sensing_task = FileSensor(
+        task_id="sense_the_csv",
+        filepath="sample1.csv",
+        fs_conn_id="my_file_system",
+        poke_interval=10,
+    )
 
     # Function that writes data to postgres, uses psycopg2
     def write_data():
-        # # replace the x00 characters before the insert
-        # with open("data.csv", "r") as reader, open("test.csv", "w") as writer:
-        #     print("this is the reader")
-        #     print(reader)
-        #     print("the endd")
-        #     for row in reader:
-        #         print(row)
-        #         writer.write(row.replace("\u0000", ""))
-
         # push data to pg
         conn = psycopg2.connect("host=localhost dbname=testdb user=testuser")
         cur = conn.cursor()
@@ -66,13 +54,13 @@ with dag:
 
     # TASK 3 -> Once the file arrives, push the data into postgreSQL
     push_data_to_pg = PythonOperator(
-        task_id="Write_csv_data_to_db", python_callable=write_data
+        task_id="Sensed_CSV_to_Postgres", python_callable=write_data
     )
 
     # TASK 4 -> From postgres, data should go to ElasticSearch via logstash (Plan is to use bash operator)
     push_data_to_elastic = BashOperator(
-        task_id="export_data_to_elasticsearch",
+        task_id="Postgres_to_ElasticSearch",
         bash_command="/Users/yudi/ELK/logstash-7.10.0/bin/logstash -f /Users/yudi/ELK/logstash-7.10.0/bin/logstash-simple.conf",
     )
 
-    create_table >> push_data_to_pg >> push_data_to_elastic
+    create_table >> file_sensing_task >> push_data_to_pg >> push_data_to_elastic
