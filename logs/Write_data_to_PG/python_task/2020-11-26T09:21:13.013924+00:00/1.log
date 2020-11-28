@@ -1,0 +1,31 @@
+[2020-11-26 14:51:17,462] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.python_task 2020-11-26T09:21:13.013924+00:00 [queued]>
+[2020-11-26 14:51:17,499] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.python_task 2020-11-26T09:21:13.013924+00:00 [queued]>
+[2020-11-26 14:51:17,499] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 14:51:17,499] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-26 14:51:17,499] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 14:51:17,527] {taskinstance.py:901} INFO - Executing <Task(PythonOperator): python_task> on 2020-11-26T09:21:13.013924+00:00
+[2020-11-26 14:51:17,531] {standard_task_runner.py:54} INFO - Started process 25394 to run task
+[2020-11-26 14:51:17,585] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_PG', 'python_task', '2020-11-26T09:21:13.013924+00:00', '--job_id', '15', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/sampledag.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp9nbes5tj']
+[2020-11-26 14:51:17,590] {standard_task_runner.py:78} INFO - Job 15: Subtask python_task
+[2020-11-26 14:51:17,719] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_PG.python_task 2020-11-26T09:21:13.013924+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-26 14:51:17,773] {logging_mixin.py:112} INFO - Creating table in database.
+[2020-11-26 14:51:17,786] {logging_mixin.py:112} INFO - <connection object at 0x7fb7ae851eb8; dsn: 'host=localhost dbname=testdb user=testuser', closed: 0>
+[2020-11-26 14:51:17,786] {logging_mixin.py:112} INFO - <cursor object at 0x7fb7ae60f618; closed: 0>
+[2020-11-26 14:51:17,798] {taskinstance.py:1150} ERROR - invalid input syntax for type integer: "30	test2@test2.com	name 3	name 3"
+CONTEXT:  COPY users, line 1, column id: "30	test2@test2.com	name 3	name 3"
+Traceback (most recent call last):
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 984, in _run_raw_task
+    result = task_copy.execute(context=context)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/python_operator.py", line 113, in execute
+    return_value = self.execute_callable()
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/python_operator.py", line 118, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/Users/yudi/airflow/dags/sampledag.py", line 41, in my_func
+    cur.copy_from(f, 'users', sep=',')
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "30	test2@test2.com	name 3	name 3"
+CONTEXT:  COPY users, line 1, column id: "30	test2@test2.com	name 3	name 3"
+
+[2020-11-26 14:51:17,803] {taskinstance.py:1194} INFO - Marking task as FAILED. dag_id=Write_data_to_PG, task_id=python_task, execution_date=20201126T092113, start_date=20201126T092117, end_date=20201126T092117
+[2020-11-26 14:51:22,450] {local_task_job.py:102} INFO - Task exited with return code 1

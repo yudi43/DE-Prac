@@ -1,0 +1,17 @@
+[2020-11-26 12:46:39,994] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: PostgresOperator_dag.insert_row 2020-11-26T07:16:29.747258+00:00 [queued]>
+[2020-11-26 12:46:40,021] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: PostgresOperator_dag.insert_row 2020-11-26T07:16:29.747258+00:00 [queued]>
+[2020-11-26 12:46:40,021] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 12:46:40,021] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-26 12:46:40,021] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 12:46:40,026] {taskinstance.py:901} INFO - Executing <Task(PostgresOperator): insert_row> on 2020-11-26T07:16:29.747258+00:00
+[2020-11-26 12:46:40,028] {standard_task_runner.py:54} INFO - Started process 6761 to run task
+[2020-11-26 12:46:40,048] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'PostgresOperator_dag', 'insert_row', '2020-11-26T07:16:29.747258+00:00', '--job_id', '5', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/sampledag.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp6rocuer6']
+[2020-11-26 12:46:40,050] {standard_task_runner.py:78} INFO - Job 5: Subtask insert_row
+[2020-11-26 12:46:40,096] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: PostgresOperator_dag.insert_row 2020-11-26T07:16:29.747258+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-26 12:46:40,123] {postgres_operator.py:62} INFO - Executing: INSERT INTO new_table VALUES(%s, %s, %s)
+[2020-11-26 12:46:40,133] {base_hook.py:89} INFO - Using connection to: id: postgres_default. Host: localhost, Port: 5432, Schema: testdb, Login: testuser, Password: XXXXXXXX, extra: None
+[2020-11-26 12:46:40,137] {dbapi_hook.py:171} INFO - INSERT INTO new_table VALUES(%s, %s, %s) with parameters (47762374, datetime.datetime(2020, 11, 26, 12, 46, 39, 930411), '7a27e1f501')
+[2020-11-26 12:46:40,149] {taskinstance.py:1070} INFO - Marking task as SUCCESS.dag_id=PostgresOperator_dag, task_id=insert_row, execution_date=20201126T071629, start_date=20201126T071639, end_date=20201126T071640
+[2020-11-26 12:46:44,994] {local_task_job.py:102} INFO - Task exited with return code 0

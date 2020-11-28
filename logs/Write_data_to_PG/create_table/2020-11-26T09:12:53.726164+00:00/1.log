@@ -1,0 +1,36 @@
+[2020-11-26 14:43:11,315] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.create_table 2020-11-26T09:12:53.726164+00:00 [queued]>
+[2020-11-26 14:43:11,332] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.create_table 2020-11-26T09:12:53.726164+00:00 [queued]>
+[2020-11-26 14:43:11,332] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 14:43:11,332] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-26 14:43:11,332] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-26 14:43:11,343] {taskinstance.py:901} INFO - Executing <Task(PostgresOperator): create_table> on 2020-11-26T09:12:53.726164+00:00
+[2020-11-26 14:43:11,345] {standard_task_runner.py:54} INFO - Started process 23022 to run task
+[2020-11-26 14:43:11,364] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_PG', 'create_table', '2020-11-26T09:12:53.726164+00:00', '--job_id', '5', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/sampledag.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp7k079r6q']
+[2020-11-26 14:43:11,366] {standard_task_runner.py:78} INFO - Job 5: Subtask create_table
+[2020-11-26 14:43:11,412] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_PG.create_table 2020-11-26T09:12:53.726164+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-26 14:43:11,440] {postgres_operator.py:62} INFO - Executing: CREATE TABLE users(
+            id integer PRIMARY KEY,
+            email text,
+            name text,
+            address text
+        )
+        
+[2020-11-26 14:43:11,449] {base_hook.py:89} INFO - Using connection to: id: postgres_default. Host: postgres, Port: None, Schema: airflow, Login: postgres, Password: XXXXXXXX, extra: None
+[2020-11-26 14:43:11,452] {taskinstance.py:1150} ERROR - could not translate host name "postgres" to address: nodename nor servname provided, or not known
+Traceback (most recent call last):
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 984, in _run_raw_task
+    result = task_copy.execute(context=context)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/postgres_operator.py", line 65, in execute
+    self.hook.run(self.sql, self.autocommit, parameters=self.parameters)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/hooks/dbapi_hook.py", line 162, in run
+    with closing(self.get_conn()) as conn:
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/hooks/postgres_hook.py", line 93, in get_conn
+    self.conn = psycopg2.connect(**conn_args)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "postgres" to address: nodename nor servname provided, or not known
+
+[2020-11-26 14:43:11,454] {taskinstance.py:1194} INFO - Marking task as FAILED. dag_id=Write_data_to_PG, task_id=create_table, execution_date=20201126T091253, start_date=20201126T091311, end_date=20201126T091311
+[2020-11-26 14:43:16,312] {local_task_job.py:102} INFO - Task exited with return code 1
