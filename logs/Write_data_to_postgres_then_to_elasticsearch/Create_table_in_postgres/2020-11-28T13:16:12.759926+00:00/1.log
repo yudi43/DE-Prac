@@ -1,0 +1,35 @@
+[2020-11-28 18:46:16,338] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Create_table_in_postgres 2020-11-28T13:16:12.759926+00:00 [queued]>
+[2020-11-28 18:46:16,362] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Create_table_in_postgres 2020-11-28T13:16:12.759926+00:00 [queued]>
+[2020-11-28 18:46:16,363] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-28 18:46:16,363] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-28 18:46:16,363] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-28 18:46:16,370] {taskinstance.py:901} INFO - Executing <Task(PostgresOperator): Create_table_in_postgres> on 2020-11-28T13:16:12.759926+00:00
+[2020-11-28 18:46:16,373] {standard_task_runner.py:54} INFO - Started process 24774 to run task
+[2020-11-28 18:46:16,410] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_postgres_then_to_elasticsearch', 'Create_table_in_postgres', '2020-11-28T13:16:12.759926+00:00', '--job_id', '433', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/csv_pg_elasticsearch.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp9m50zoks']
+[2020-11-28 18:46:16,413] {standard_task_runner.py:78} INFO - Job 433: Subtask Create_table_in_postgres
+[2020-11-28 18:46:16,465] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Create_table_in_postgres 2020-11-28T13:16:12.759926+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-28 18:46:16,494] {postgres_operator.py:62} INFO - Executing: CREATE TABLE sampletable(
+            id integer PRIMARY KEY,
+            description text,
+            name text,
+            id1 text,
+            id2 text,
+            department text
+        );
+        SET client_encoding = WIN1252;
+        
+[2020-11-28 18:46:16,504] {base_hook.py:89} INFO - Using connection to: id: postgres_default. Host: localhost, Port: None, Schema: testdb, Login: testuser, Password: XXXXXXXX, extra: None
+[2020-11-28 18:46:16,516] {dbapi_hook.py:174} INFO - CREATE TABLE sampletable(
+            id integer PRIMARY KEY,
+            description text,
+            name text,
+            id1 text,
+            id2 text,
+            department text
+        );
+        SET client_encoding = WIN1252;
+        
+[2020-11-28 18:46:16,554] {taskinstance.py:1070} INFO - Marking task as SUCCESS.dag_id=Write_data_to_postgres_then_to_elasticsearch, task_id=Create_table_in_postgres, execution_date=20201128T131612, start_date=20201128T131616, end_date=20201128T131616
+[2020-11-28 18:46:21,333] {local_task_job.py:102} INFO - Task exited with return code 0

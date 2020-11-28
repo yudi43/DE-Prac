@@ -20,22 +20,20 @@ with dag:
     # 3 -> Once the file arrives, push the data into postgreSQL
     # 4 -> From postgres, data should go to ElasticSearch via logstash (Plan is to use bash operator)
 
-    # 1 -> Create table in postgres. (//TODO: CHECK IF THE TABLE ALREADY EXISTS)
+    # TASK 1 -> Create table in postgres. (//TODO: CHECK IF THE TABLE ALREADY EXISTS)
     create_table = PostgresOperator(
         task_id="Create_table_in_postgres",
         sql="""CREATE TABLE sampletable(
-            id integer PRIMARY KEY,
-            description text,
-            name text,
-            id1 text,
-            id2 text,
-            department text
+            Date text,
+            Open text,
+            High text,
+            Low text,
+            Close text
         );
-        SET client_encoding = WIN1252;
         """,
     )
 
-    # 2 -> Wait for the file using the FileSensor
+    # TASK 2 -> Wait for the file using the FileSensor
     #
     #
     #
@@ -49,16 +47,32 @@ with dag:
 
     # Function that writes data to postgres, uses psycopg2
     def write_data():
+        # # replace the x00 characters before the insert
+        # with open("data.csv", "r") as reader, open("test.csv", "w") as writer:
+        #     print("this is the reader")
+        #     print(reader)
+        #     print("the endd")
+        #     for row in reader:
+        #         print(row)
+        #         writer.write(row.replace("\u0000", ""))
+
+        # push data to pg
         conn = psycopg2.connect("host=localhost dbname=testdb user=testuser")
         cur = conn.cursor()
-        with open("data.csv", "rb",) as f:
+        with open("sample1.csv", "r",) as f:
             next(f)
             cur.copy_from(f, "sampletable", sep=",")
         conn.commit()
 
-    # 3 -> Once the file arrives, push the data into postgreSQL
+    # TASK 3 -> Once the file arrives, push the data into postgreSQL
     push_data_to_pg = PythonOperator(
         task_id="Write_csv_data_to_db", python_callable=write_data
     )
 
-    create_table >> push_data_to_pg
+    # TASK 4 -> From postgres, data should go to ElasticSearch via logstash (Plan is to use bash operator)
+    push_data_to_elastic = BashOperator(
+        task_id="export_data_to_elasticsearch",
+        bash_command="/Users/yudi/ELK/logstash-7.10.0/bin/logstash -f /Users/yudi/ELK/logstash-7.10.0/bin/logstash-simple.conf",
+    )
+
+    create_table >> push_data_to_pg >> push_data_to_elastic

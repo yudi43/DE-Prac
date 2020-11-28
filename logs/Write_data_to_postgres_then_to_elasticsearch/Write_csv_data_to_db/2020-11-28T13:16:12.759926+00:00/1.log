@@ -1,0 +1,28 @@
+[2020-11-28 18:46:24,064] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Write_csv_data_to_db 2020-11-28T13:16:12.759926+00:00 [queued]>
+[2020-11-28 18:46:24,085] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Write_csv_data_to_db 2020-11-28T13:16:12.759926+00:00 [queued]>
+[2020-11-28 18:46:24,085] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-28 18:46:24,085] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-28 18:46:24,085] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-28 18:46:24,098] {taskinstance.py:901} INFO - Executing <Task(PythonOperator): Write_csv_data_to_db> on 2020-11-28T13:16:12.759926+00:00
+[2020-11-28 18:46:24,100] {standard_task_runner.py:54} INFO - Started process 24828 to run task
+[2020-11-28 18:46:24,122] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_postgres_then_to_elasticsearch', 'Write_csv_data_to_db', '2020-11-28T13:16:12.759926+00:00', '--job_id', '434', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/csv_pg_elasticsearch.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp3cad2paw']
+[2020-11-28 18:46:24,124] {standard_task_runner.py:78} INFO - Job 434: Subtask Write_csv_data_to_db
+[2020-11-28 18:46:24,170] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Write_csv_data_to_db 2020-11-28T13:16:12.759926+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-28 18:46:24,207] {taskinstance.py:1150} ERROR - invalid byte sequence for encoding "UTF8": 0xae
+CONTEXT:  COPY sampletable, line 1
+Traceback (most recent call last):
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 984, in _run_raw_task
+    result = task_copy.execute(context=context)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/python_operator.py", line 113, in execute
+    return_value = self.execute_callable()
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/python_operator.py", line 118, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/Users/yudi/airflow/dags/csv_pg_elasticsearch.py", line 66, in write_data
+    cur.copy_from(f, "sampletable", sep=",")
+psycopg2.errors.CharacterNotInRepertoire: invalid byte sequence for encoding "UTF8": 0xae
+CONTEXT:  COPY sampletable, line 1
+
+[2020-11-28 18:46:24,210] {taskinstance.py:1194} INFO - Marking task as FAILED. dag_id=Write_data_to_postgres_then_to_elasticsearch, task_id=Write_csv_data_to_db, execution_date=20201128T131612, start_date=20201128T131624, end_date=20201128T131624
+[2020-11-28 18:46:29,063] {local_task_job.py:102} INFO - Task exited with return code 1
