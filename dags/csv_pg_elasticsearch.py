@@ -24,7 +24,7 @@ with dag:
     # 4 -> From postgres, data should go to ElasticSearch via logstash (Plan is to use bash operator)
 
     def check_table():
-        return ["sense_the_csv", "Sensed_CSV_to_Postgres", "Postgres_to_ElasticSearch"]
+        return "sense_the_csv"
 
     check_for_table = BranchPythonOperator(
         task_id="Check_for_table", python_callable=check_table,
