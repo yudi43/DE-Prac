@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from pathlib import Path
 import tweepy as tw
+import psycopg2
 
 env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
@@ -36,6 +37,36 @@ class MyStreamListener(tw.StreamListener):
             status.user.location,
         )
         print(new_tweet.message)
+        try:
+
+            connection = psycopg2.connect("host=localhost dbname=testdb user=testuser")
+            cursor = connection.cursor()
+            postgres_insert_query = """
+                INSERT INTO tweets(text, name, screen_name, id_string, location) VALUES (%s, %s, %s, %s, %s)
+            """
+            data_to_insert = (
+                new_tweet.message,
+                new_tweet.name,
+                new_tweet.screen_name,
+                new_tweet.id_string,
+                new_tweet.location,
+            )
+            cursor.execute(postgres_insert_query, data_to_insert)
+            connection.commit()
+            count = cursor.rowcount
+            print(count, " Record inserted successfully into the tweets table.")
+        except (Exception, psycopg2.Error) as Error:
+            print("This is the error: " + str(Error))
+            if not connection:
+                print("Failed to insert the data into the tweets table.")
+                return False
+        finally:
+            # closing the database connection
+            if not connection:
+                cursor.close()
+                connection.close()
+                print("Postgres connection is closed.")
+                return False
         return True
 
     def on_error(self, status_code):
@@ -46,5 +77,5 @@ class MyStreamListener(tw.StreamListener):
 myStreamListener = MyStreamListener()
 myStream = tw.Stream(auth=api.auth, listener=myStreamListener)
 
-myStream.filter(track=["sikh"], is_async=True)
+myStream.filter(track=["trump"], is_async=True)
 # text, user {'name', 'id_str', 'location', 'screen_name'}
