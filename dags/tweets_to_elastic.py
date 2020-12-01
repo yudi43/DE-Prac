@@ -35,9 +35,8 @@ class MyStreamListener(tw.StreamListener):
             status.user.id_str,
             status.user.location,
         )
-        print(new_tweet)
-        print(status.user.name)
-        print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        print(new_tweet.message)
+        return True
 
     def on_error(self, status_code):
         if status_code == 420:
@@ -47,7 +46,5 @@ class MyStreamListener(tw.StreamListener):
 myStreamListener = MyStreamListener()
 myStream = tw.Stream(auth=api.auth, listener=myStreamListener)
 
-myStream.filter(track=["water"], is_async=True)
-
-
-# text, user {'name', 'id_str', 'location', 'screen_name', }
+myStream.filter(track=["sikh"], is_async=True)
+# text, user {'name', 'id_str', 'location', 'screen_name'}

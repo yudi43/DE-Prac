@@ -1,0 +1,17 @@
+[2020-11-30 10:13:46,342] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Check_for_table 2020-11-30T04:43:41.965615+00:00 [queued]>
+[2020-11-30 10:13:46,361] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Check_for_table 2020-11-30T04:43:41.965615+00:00 [queued]>
+[2020-11-30 10:13:46,361] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 10:13:46,361] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-30 10:13:46,361] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 10:13:46,375] {taskinstance.py:901} INFO - Executing <Task(BranchPythonOperator): Check_for_table> on 2020-11-30T04:43:41.965615+00:00
+[2020-11-30 10:13:46,377] {standard_task_runner.py:54} INFO - Started process 95389 to run task
+[2020-11-30 10:13:46,399] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_postgres_then_to_elasticsearch', 'Check_for_table', '2020-11-30T04:43:41.965615+00:00', '--job_id', '851', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/csv_pg_elasticsearch.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmpfh5ttr30']
+[2020-11-30 10:13:46,401] {standard_task_runner.py:78} INFO - Job 851: Subtask Check_for_table
+[2020-11-30 10:13:46,445] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Check_for_table 2020-11-30T04:43:41.965615+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-30 10:13:46,472] {python_operator.py:114} INFO - Done. Returned value was: sense_the_csv
+[2020-11-30 10:13:46,472] {skipmixin.py:123} INFO - Following branch sense_the_csv
+[2020-11-30 10:13:46,480] {skipmixin.py:149} INFO - Skipping tasks ['Create_Table_in_Postgres']
+[2020-11-30 10:13:46,516] {taskinstance.py:1070} INFO - Marking task as SUCCESS.dag_id=Write_data_to_postgres_then_to_elasticsearch, task_id=Check_for_table, execution_date=20201130T044341, start_date=20201130T044346, end_date=20201130T044346
+[2020-11-30 10:13:51,331] {local_task_job.py:102} INFO - Task exited with return code 0

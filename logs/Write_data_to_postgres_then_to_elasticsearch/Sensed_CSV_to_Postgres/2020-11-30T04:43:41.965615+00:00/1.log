@@ -1,0 +1,15 @@
+[2020-11-30 10:14:02,507] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Sensed_CSV_to_Postgres 2020-11-30T04:43:41.965615+00:00 [queued]>
+[2020-11-30 10:14:02,556] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Sensed_CSV_to_Postgres 2020-11-30T04:43:41.965615+00:00 [queued]>
+[2020-11-30 10:14:02,556] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 10:14:02,556] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-30 10:14:02,556] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 10:14:02,563] {taskinstance.py:901} INFO - Executing <Task(PythonOperator): Sensed_CSV_to_Postgres> on 2020-11-30T04:43:41.965615+00:00
+[2020-11-30 10:14:02,566] {standard_task_runner.py:54} INFO - Started process 95523 to run task
+[2020-11-30 10:14:02,589] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_postgres_then_to_elasticsearch', 'Sensed_CSV_to_Postgres', '2020-11-30T04:43:41.965615+00:00', '--job_id', '853', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/csv_pg_elasticsearch.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmp572s4p_f']
+[2020-11-30 10:14:02,592] {standard_task_runner.py:78} INFO - Job 853: Subtask Sensed_CSV_to_Postgres
+[2020-11-30 10:14:02,644] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_postgres_then_to_elasticsearch.Sensed_CSV_to_Postgres 2020-11-30T04:43:41.965615+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-30 10:14:02,714] {python_operator.py:114} INFO - Done. Returned value was: None
+[2020-11-30 10:14:02,727] {taskinstance.py:1070} INFO - Marking task as SUCCESS.dag_id=Write_data_to_postgres_then_to_elasticsearch, task_id=Sensed_CSV_to_Postgres, execution_date=20201130T044341, start_date=20201130T044402, end_date=20201130T044402
+[2020-11-30 10:14:07,447] {local_task_job.py:102} INFO - Task exited with return code 0

@@ -1,0 +1,41 @@
+[2020-11-30 17:21:22,552] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.create_table 2020-11-30T11:45:00+00:00 [queued]>
+[2020-11-30 17:21:22,610] {taskinstance.py:670} INFO - Dependencies all met for <TaskInstance: Write_data_to_PG.create_table 2020-11-30T11:45:00+00:00 [queued]>
+[2020-11-30 17:21:22,611] {taskinstance.py:880} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 17:21:22,611] {taskinstance.py:881} INFO - Starting attempt 1 of 1
+[2020-11-30 17:21:22,611] {taskinstance.py:882} INFO - 
+--------------------------------------------------------------------------------
+[2020-11-30 17:21:22,648] {taskinstance.py:901} INFO - Executing <Task(PostgresOperator): create_table> on 2020-11-30T11:45:00+00:00
+[2020-11-30 17:21:22,651] {standard_task_runner.py:54} INFO - Started process 52683 to run task
+[2020-11-30 17:21:22,731] {standard_task_runner.py:77} INFO - Running: ['airflow', 'run', 'Write_data_to_PG', 'create_table', '2020-11-30T11:45:00+00:00', '--job_id', '924', '--pool', 'default_pool', '--raw', '-sd', 'DAGS_FOLDER/FileSensorDemo.py', '--cfg_path', '/var/folders/ff/pqhf5klx0msdsn3m1cnq4cxr0000gn/T/tmpkg10iz4f']
+[2020-11-30 17:21:22,741] {standard_task_runner.py:78} INFO - Job 924: Subtask create_table
+[2020-11-30 17:21:22,830] {logging_mixin.py:112} INFO - Running %s on host %s <TaskInstance: Write_data_to_PG.create_table 2020-11-30T11:45:00+00:00 [running]> 47.43.168.192.in-addr.arpa
+[2020-11-30 17:21:22,862] {postgres_operator.py:62} INFO - Executing: CREATE TABLE sampletable(
+            Date text,
+            Open text,
+            High text,
+            Low text,
+            Close text
+        );
+        
+[2020-11-30 17:21:22,872] {base_hook.py:89} INFO - Using connection to: id: postgres_default. Host: localhost, Port: None, Schema: testdb, Login: testuser, Password: XXXXXXXX, extra: None
+[2020-11-30 17:21:22,876] {dbapi_hook.py:174} INFO - CREATE TABLE sampletable(
+            Date text,
+            Open text,
+            High text,
+            Low text,
+            Close text
+        );
+        
+[2020-11-30 17:21:22,878] {taskinstance.py:1150} ERROR - relation "sampletable" already exists
+Traceback (most recent call last):
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 984, in _run_raw_task
+    result = task_copy.execute(context=context)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/operators/postgres_operator.py", line 65, in execute
+    self.hook.run(self.sql, self.autocommit, parameters=self.parameters)
+  File "/Users/yudi/opt/anaconda3/envs/airflow/lib/python3.6/site-packages/airflow/hooks/dbapi_hook.py", line 175, in run
+    cur.execute(s)
+psycopg2.errors.DuplicateTable: relation "sampletable" already exists
+
+[2020-11-30 17:21:22,881] {taskinstance.py:1194} INFO - Marking task as FAILED. dag_id=Write_data_to_PG, task_id=create_table, execution_date=20201130T114500, start_date=20201130T115122, end_date=20201130T115122
+[2020-11-30 17:21:27,576] {local_task_job.py:102} INFO - Task exited with return code 1
