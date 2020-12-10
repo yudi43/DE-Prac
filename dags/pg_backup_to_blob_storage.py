@@ -1,8 +1,10 @@
 from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+
 from datetime import datetime
 
 with DAG(
-    "Send PG backup to Azure Data Blob",
+    "Send_PG_backup_to_Azure_Data_Blob",
     description="This pipeline is made for taking backup of postgres database and seding to Azure data blob in tar.gz format",
     schedule_interval="*/5 * * * *",
     start_date=datetime(2019, 11, 1),
@@ -13,7 +15,13 @@ with DAG(
     # SPLITTING THE TASKS:
 
     # TASK 1: Take backup of a database on local storage (in tar.gz format).
-    # TASK 2: Encrypt the backup.
+    # TASK 2: Sense the backup file, wait until it appears.
     # TASK 3: Upload it to azure data blob
+    def print_context():
+        print("this is a test!!")
 
-    
+    sample_tasl = PythonOperator(
+        task_id="test_the_dag",
+        python_callable=print_context,
+    )
+
