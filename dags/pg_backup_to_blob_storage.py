@@ -12,5 +12,8 @@ with DAG(
 
     # SPLITTING THE TASKS:
 
-    # TASK 1: Take backup of a database on local storage.
-    # TASK 2: Upload it to azure data blob
+    # TASK 1: Take backup of a database on local storage (in tar.gz format).
+    # TASK 2: Encrypt the backup.
+    # TASK 3: Upload it to azure data blob
+
+    
