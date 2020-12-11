@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
 
-container_name = "your_container_name"
-connection_string = "your_connection_string"
+container_name = "enter_your_container_name"
+connection_string = "enter_your_connection_string"
 
 with DAG(
     "Send_PG_backup_to_Azure_Blob_Storage",
